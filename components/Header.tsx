@@ -2,7 +2,7 @@ import Link from 'next/link';
 // import Image from 'next/image';
 // import logo from './public/medium-logo.png';
 
-function Header() {
+function Header() {``
   return (
     <header className="flex justify-between p-5 max-w-7xl mx-auto">
       <div className="flex items-center space-x-5">
