@@ -1,59 +1,47 @@
 import Head from 'next/head';
+import Banner from '../components/Banner';
 import Header from '../components/Header';
-import { sanityClient } from '../sanity';
-import { Post } from '../typings';
+import Posts from '../components/Posts';
+import { sanityClient, urlFor } from '../sanity';
+import { IPost } from '../typings';
 
 interface Props {
-  posts: [Post];
+  posts: [IPost];
 }
 
-export default function Home({posts}: Props) {
-  console.log({posts});
-
+// const Home: NextPage = (props) => {
+export default function Home({ posts }: Props) {
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="mx-auto max-w-7xl">
       <Head>
-        <title>Create Next App</title>
+        <title>Cogent X Blog</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header></Header>
+      <header>
+        <Header />
+        <Banner />
+      </header>
 
-      <div className="flex justify-between items-center bg-yellow-400 border-y border-black py-10 lg:py-0">
-        <div className="px-10 space-y-5">
-          <h1 className="text-6xl max-w-xl font-serif">
-            <span className="underline decoration-black decoration-4">Medium</span> is a place to write, read, and
-            connect
-          </h1>
-          <h2>It's easy and free to post your thinking on any topic and connect with millions of readers.</h2>
-        </div>
-        <img
-          className="hidden md:inline-flex h-32 lg:h-full"
-          src="https://accountabilitylab.org/wp-content/uploads/2020/03/Medium-logo.png"
-          alt="Medium Logo"
-        />
-      </div>
-
-      {/* Posts */}
-      
+      {/* Posts Section */}
+      <Posts posts={posts} />
     </div>
   );
 }
 
 // Enable SSR in Next.js for this page
 export const getServerSideProps = async () => {
-  // fetch data from Sanity
-  const query = `
-  *[_type == "post"] {
-_id,
+  // fetch data from Sanity backend
+  const query = `*[_type == "post"] {
+  _id,
   title,
-  author -> {
+  author->{
   name,
   image
-  },
+},
 description,
 mainImage,
-slug,
+slug
 }`;
 
   const posts = await sanityClient.fetch(query);
