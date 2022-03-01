@@ -3,6 +3,7 @@ import React from 'react';
 import Header from '../../components/Header';
 import { sanityClient, urlFor } from '../../sanity';
 import { IPost } from '../../typings';
+import PortableText from 'react-portable-text';
 
 interface Props {
   post: IPost;
@@ -25,6 +26,29 @@ function PostPage({ post }: Props) {
             Blog post by <span className="text-green-600">{post.author.name}</span> - Published at{' '}
             {new Date(post._createdAt).toLocaleString()}
           </p>
+        </div>
+
+        <div className="mt-10">
+          <PortableText
+            dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
+            projectId={process.env.NEXT_PUBLIC_SANITY_DATASET}
+            content={post.body}
+            serializers={{
+              h1: (props: any) => <h1 className="my-5 text-2xl font-bold" {...props} />,
+              h2: (props: any) => <h2 className="my-5 text-xl font-bold" {...props} />,
+              li: ({ children }: any) => <li className="ml-4 list-disc">{children}</li>,
+              link: ({ href, children }: any) => (
+                <a href={href} className="text-blue-500 hover:underline">
+                  {children}
+                </a>
+              ),
+              image: (props: any) => (
+                <figure>
+                  <img className="" src={urlFor(props.asset)?.url()} alt="author image" />
+                </figure>
+              ),
+            }}
+          />
         </div>
       </article>
     </main>
@@ -90,4 +114,3 @@ body
     revalidate: 60, // enables ISR - update cache after 60s
   };
 };
-
