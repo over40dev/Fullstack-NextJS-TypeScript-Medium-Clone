@@ -53,6 +53,36 @@ function PostPage({ post }: Props) {
       </article>
 
       <hr className="my-5 mx-auto max-w-lg border border-yellow-500" />
+
+      <form className="mx-auto mb-10 flex max-w-2xl flex-col p-5">
+        <h3 className="text-sm text-yellow-500">Enjoyed the article?</h3>
+        <h4 className="text-3xl font-bold">Leave a comment below!</h4>
+        <hr className="mt-2 py-3" />
+        <label className="mb-5 block">
+          <span className="text-gray-700">Name</span>
+          <input
+            className="focus:rin block w-full rounded border py-2 px-3  shadow outline-none ring-yellow-500 focus:ring"
+            placeholder="J Doe"
+            type="text"
+          />
+        </label>
+        <label className="mb-5 block">
+          <span className="text-gray-700">Email</span>
+          <input
+            className="focus:rin block w-full rounded border py-2 px-3  shadow outline-none ring-yellow-500 focus:ring"
+            placeholder="j@doe.com"
+            type="email"
+          />
+        </label>
+        <label className="mb-5 block">
+          <span className="text-gray-700">Comment</span>
+          <textarea
+            className="form-textarea mt-1 block w-full rounded border py-2 px-3 shadow outline-none ring-yellow-500 focus:ring"
+            placeholder="Your comments please..."
+            rows={8}
+          />
+        </label>
+      </form>
     </main>
   );
 }
