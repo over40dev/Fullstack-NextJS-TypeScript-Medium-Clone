@@ -6,7 +6,7 @@ export interface IPost {
     name: string;
     image: string;
   };
-  comments: [Comment];
+  comments: [IComment];
   description: string;
   mainImage: {
     asset: {
@@ -19,7 +19,7 @@ export interface IPost {
   body: [object];
 }
 
-export interface Comment {
+export interface IComment {
   approved: boolean;
   comment: string;
   name: string;
