@@ -4,14 +4,7 @@ import PortableText from 'react-portable-text';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Header from '../../components/Header';
 import { sanityClient, urlFor } from '../../sanity';
-import { IPost } from '../../typings';
-
-interface IFormInput {
-  _id: string;
-  name: string;
-  email: string;
-  comment: string;
-}
+import { IPost, IFormInput } from '../../typings';
 interface Props {
   post: IPost;
 }
