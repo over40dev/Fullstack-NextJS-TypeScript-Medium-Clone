@@ -17,3 +17,10 @@ export interface IPost {
   };
   body: [object];
 }
+
+export interface IFormInput {
+  _id: string;
+  name: string;
+  email: string;
+  comment: string;
+}
