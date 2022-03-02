@@ -24,7 +24,14 @@ function PostPage({ post }: Props) {
   } = useForm<IFormInput>();
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    console.log({ data });
+    await fetch('/api/createComment', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    })
+      .then(() => {
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -115,7 +122,7 @@ function PostPage({ post }: Props) {
 
         <input
           type="submit"
-          className="shadow bg-yellow-500 hover:bg-yellow-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded cursor-pointer"
+          className="focus:shadow-outline cursor-pointer rounded bg-yellow-500 py-2 px-4 font-bold text-white shadow hover:bg-yellow-400 focus:outline-none"
         />
       </form>
     </main>
