@@ -12,6 +12,8 @@ interface Props {
 function PostPage({ post }: Props) {
   const [submitted, setSubmitted] = useState(false);
 
+  console.log(post);
+
   const {
     register,
     handleSubmit,
@@ -78,7 +80,7 @@ function PostPage({ post }: Props) {
       <hr className="my-5 mx-auto max-w-lg border border-yellow-500" />
 
       {submitted ? (
-        <div className="flex flex-col p-10 my-10 bg-yellow-500 text-white max-w-2xl mx-auto text-center">
+        <div className="my-10 mx-auto flex max-w-2xl flex-col bg-yellow-500 p-10 text-center text-white">
           <h3 className="text-3xl font-bold">Thank you for submitting your comment!</h3>
           <p>Once it has been approved, it will be displayed below!</p>
         </div>
@@ -170,6 +172,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   name,
   image,
 },
+'comments': *[
+  _type == "comment" &&
+  post._ref == ^._id &&
+  approved == true
+],
 description,
 mainImage,
 slug,
