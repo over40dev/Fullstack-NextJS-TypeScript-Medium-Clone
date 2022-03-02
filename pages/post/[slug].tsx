@@ -4,7 +4,7 @@ import PortableText from 'react-portable-text';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Header from '../../components/Header';
 import { sanityClient, urlFor } from '../../sanity';
-import { IPost, IFormInput } from '../../typings';
+import { IPost, IFormInput, IComment } from '../../typings';
 interface Props {
   post: IPost;
 }
@@ -46,8 +46,8 @@ function PostPage({ post }: Props) {
         <div className="flex items-center space-x-2">
           <img className="h-10 w-10 rounded-full" src={urlFor(post.author.image).url()} alt="author image" />
           <p className="text-sm font-extralight">
-            Blog post by <span className="text-green-600">{post.author.name}</span> - Published at{' '}
-            {new Date(post._createdAt).toLocaleString()}
+            Blog post by <span className="text-green-600">{post.author.name}</span> - Published on{' '}
+            {new Date(post._createdAt).toDateString()}
           </p>
         </div>
 
@@ -78,7 +78,7 @@ function PostPage({ post }: Props) {
       <hr className="my-5 mx-auto max-w-lg border border-yellow-500" />
 
       {submitted ? (
-        <div className="flex flex-col p-10 my-10 bg-yellow-500 text-white max-w-2xl mx-auto text-center">
+        <div className="my-10 mx-auto flex max-w-2xl flex-col bg-yellow-500 p-10 text-center text-white">
           <h3 className="text-3xl font-bold">Thank you for submitting your comment!</h3>
           <p>Once it has been approved, it will be displayed below!</p>
         </div>
@@ -131,6 +131,19 @@ function PostPage({ post }: Props) {
           />
         </form>
       )}
+
+      {/* comments section */}
+      <div className="my-10 mx-auto flex max-w-2xl flex-col space-y-2 p-10 shadow shadow-yellow-500">
+        <h3 className="text-4xl">Comments</h3>
+        <hr className="pb-2" />
+        {post.comments.map((comment: IComment) => (
+          <div key={comment._id}>
+            <p>
+              <span className="text-yellow-500">{comment.name}</span>: {comment.comment}
+            </p>
+          </div>
+        ))}
+      </div>
     </main>
   );
 }
@@ -170,6 +183,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   name,
   image,
 },
+'comments': *[
+  _type == "comment" &&
+  post._ref == ^._id &&
+  approved == true
+],
 description,
 mainImage,
 slug,

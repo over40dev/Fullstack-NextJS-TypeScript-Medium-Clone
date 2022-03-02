@@ -6,6 +6,7 @@ export interface IPost {
     name: string;
     image: string;
   };
+  comments: [IComment];
   description: string;
   mainImage: {
     asset: {
@@ -16,6 +17,22 @@ export interface IPost {
     current: string;
   };
   body: [object];
+}
+
+export interface IComment {
+  approved: boolean;
+  comment: string;
+  name: string;
+  email: string;
+  post: {
+    _ref: string;
+    _type: string;
+  };
+  _createdAt: string;
+  _updatedAt: string;
+  _id: string;
+  _rev: string;
+  _type: string;
 }
 
 export interface IFormInput {
